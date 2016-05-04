@@ -30,4 +30,4 @@ deployment:
     branch: add_ci_config
     commands:
       - docker login -e ${DOCKER_EMAIL} -u ${DOCKER_USER} -p ${DOCKER_PASS}
-      - docker push ${DOCKER_USER}:${DOCKER_REPO}
+      - docker push ${DOCKER_USER}/${DOCKER_REPO}
