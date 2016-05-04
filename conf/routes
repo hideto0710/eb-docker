@@ -1,0 +1,4 @@
+POST    /auth                       com.hideto0710.ebDocker.controllers.Application.auth
+
+GET     /accounts                   com.hideto0710.ebDocker.controllers.AccountController.index
+POST    /accounts                   com.hideto0710.ebDocker.controllers.AccountController.create
