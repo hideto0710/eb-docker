@@ -24,8 +24,7 @@ test:
     - sbt test
   post:
     - sbt docker:stage
-    - cd target/docker/stage
-    - docker build --tag=${DOCKER_USER}/${DOCKER_REPO} .
+    - cd target/docker/stage; docker build --tag=${DOCKER_USER}/${DOCKER_REPO} .
 
 deployment:
   hub:
