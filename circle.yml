@@ -14,20 +14,20 @@ dependencies:
     - "~/.ivy2"
     - "~/.sbt"
 
+database:
+  post:
+    - mysql -u root < $HOME/$CIRCLE_PROJECT_REPONAME/ci/setup_database.sql
+    - mysql -u root eb < $HOME/$CIRCLE_PROJECT_REPONAME/ci/setup_table.sql
+
 test:
   override:
     - sbt test
   post:
     - sbt docker:publishLocal
 
-database:
-  post:
-    - mysql -u root < $HOME/$CIRCLE_PROJECT_REPONAME/ci/setup_database.sql
-    - mysql -u root eb < $HOME/$CIRCLE_PROJECT_REPONAME/ci/setup_table.sql
-
 deployment:
   hub:
-    branch: master
+    branch: add_ci_config
     commands:
       - docker login -e ${DOCKER_EMAIL} -u ${DOCKER_USER} -p ${DOCKER_PASS}
       - docker push ${DOCKER_USER}:${DOCKER_REPO}
