@@ -3,3 +3,7 @@ target/
 .idea/
 /logs/
 /project/target
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
