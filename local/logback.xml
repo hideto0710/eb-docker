@@ -2,7 +2,7 @@
 
   <conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel" />
 
-  <property name="LOGGER_DIR" value="/var/log/eb-docker" />
+  <property name="LOGGER_DIR" value="logs" />
 
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <file>${LOGGER_DIR}/api.log</file>

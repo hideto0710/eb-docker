@@ -4,6 +4,7 @@ eb-docker
 ## development
 ```
 $ sbt -Dplay.evolutions.db.default.autoApply=true \
--Dconfig.file=conf/local.conf \
+-Dconfig.file=local/application.conf \
+-Dlogger.file=local/logback.xml \
 run
 ```

@@ -25,7 +25,7 @@ database:
 
 test:
   pre:
-    - mv $HOME/$CIRCLE_PROJECT_REPONAME/ci/test.conf $HOME/$CIRCLE_PROJECT_REPONAME/conf/local.conf
+    - mv $HOME/$CIRCLE_PROJECT_REPONAME/ci/application.conf $HOME/$CIRCLE_PROJECT_REPONAME/local/application.conf
   override:
     - sbt test
     

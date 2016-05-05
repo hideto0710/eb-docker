@@ -33,7 +33,10 @@ lazy val root = (project in file("."))
     )
   )
   .settings(
-    javaOptions in Test ++= Seq("-Dconfig.file=conf/local.conf")
+    javaOptions in Test := Seq(
+      "-Dconfig.file=local/application.conf",
+      "-Dlogback.configurationFile=local/logback.xml"
+    )
   )
   .settings(
     packageName in Docker := "eb-docker",
