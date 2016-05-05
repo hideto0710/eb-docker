@@ -11,10 +11,8 @@ dependencies:
   override:
     - sbt update
     - mkdir -p ~/docker-images
-    - if [[ ! -e ~/docker-images/java.tar ]]; then \
-        docker pull "java" && \
-        docker save "java" > ~/docker-images/java.tar; \
-      else docker load -i ~/docker-images/java.tar; fi
+    - if [[ ! -e ~/docker-images/java.tar ]]; then docker pull "java" && docker save "java" > ~/docker-images/java.tar
+    - if [[ -e ~/docker-images/java.tar ]]; then docker load -i ~/docker-images/java.tar; fi
   cache_directories:
     - "~/.ivy2"
     - "~/.sbt"
