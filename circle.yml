@@ -6,14 +6,13 @@ machine:
 
 dependencies:
   pre:
-    - if [[ ! -e ~/sbt-dir/sbt-0.13.8.deb ]]; then wget -q https://dl.bintray.com/sbt/debian/sbt-0.13.8.deb -P sbt-dir/; fi
-    - sudo dpkg -i sbt-dir/sbt-0.13.8.deb
+    - wget -q https://dl.bintray.com/sbt/debian/sbt-0.13.8.deb
+    - sudo dpkg -i sbt-0.13.8.deb
   override:
     - sbt update
   cache_directories:
     - "~/.ivy2"
     - "~/.sbt"
-    - "~/sbt-dir"
 
 database:
   post:
@@ -22,7 +21,7 @@ database:
 
 test:
   pre:
-    - mv $HOME/$CIRCLE_PROJECT_REPONAME/ci/local.conf $HOME/$CIRCLE_PROJECT_REPONAME/config/local.conf
+    - mv $HOME/$CIRCLE_PROJECT_REPONAME/ci/local.conf $HOME/$CIRCLE_PROJECT_REPONAME/conf/local.conf
   override:
     - sbt test
     
