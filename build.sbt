@@ -6,7 +6,7 @@ lazy val root = (project in file("."))
   .enablePlugins(PlayScala)
   .settings(
     name := "eb-docker",
-    version := "1.0.0",
+    version := "1.0.1",
     scalaVersion := "2.11.7",
     scalacOptions := Seq("-language:_", "-deprecation", "-unchecked", "-feature", "-Xlint"),
     transitiveClassifiers in Global := Seq(Artifact.SourceClassifier),
