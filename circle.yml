@@ -10,9 +10,15 @@ dependencies:
     - sudo dpkg -i sbt-0.13.8.deb
   override:
     - sbt update
+    - mkdir -p ~/docker-images
+    - if [[ ! -e ~/docker-images/java.tar ]]; then \
+        docker pull "java" && \
+        docker save "java" > ~/docker-images/java.tar; \
+      else docker load -i ~/docker-images/java.tar; fi
   cache_directories:
     - "~/.ivy2"
     - "~/.sbt"
+    - "~/docker-images"
 
 database:
   post:
