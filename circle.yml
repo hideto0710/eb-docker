@@ -20,16 +20,14 @@ database:
     - mysql -u root < $HOME/$CIRCLE_PROJECT_REPONAME/ci/setup_database.sql
     - mysql -u root eb < $HOME/$CIRCLE_PROJECT_REPONAME/ci/setup_table.sql
 
-checkout:
-  post:
-    - mv ci/local.conf config/local.conf
-
 test:
+  pre:
+    - mv $HOME/$CIRCLE_PROJECT_REPONAME/ci/local.conf $HOME/$CIRCLE_PROJECT_REPONAME/config/local.conf
   override:
     - sbt test
     
 deployment:
-  hub:
+  docker:
     branch: add_ci_config
     commands:
       - docker login -e ${DOCKER_EMAIL} -u ${DOCKER_USER} -p ${DOCKER_PASS}
