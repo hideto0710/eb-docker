@@ -6,7 +6,7 @@ lazy val root = (project in file("."))
   .enablePlugins(PlayScala)
   .settings(
     name := "eb-docker",
-    version := "1.0.0",
+    version := "1.0.1",
     scalaVersion := "2.11.7",
     scalacOptions := Seq("-language:_", "-deprecation", "-unchecked", "-feature", "-Xlint"),
     transitiveClassifiers in Global := Seq(Artifact.SourceClassifier),
@@ -36,9 +36,10 @@ lazy val root = (project in file("."))
     javaOptions in Test ++= Seq("-Dconfig.file=conf/local.conf")
   )
   .settings(
-    packageName in Docker := "eb",
+    packageName in Docker := "eb-docker",
     maintainer in Docker := "INAMURA Hideto <h.inamura0710@gmail.com>",
     dockerExposedPorts := Seq(DockerExposePort, DockerExposePort),
+    dockerRepository := Some("docker.io/shuto0710"),
     dockerCommands := dockerCommands.value.filterNot {
       case ExecCmd("ENTRYPOINT", args @ _*) => true
       case ExecCmd("CMD", args @ _*) => args.isEmpty

@@ -1,0 +1,37 @@
+machine:
+  java:
+    version: oraclejdk8
+  services:
+    - docker
+
+dependencies:
+  pre:
+    - wget -q https://dl.bintray.com/sbt/debian/sbt-0.13.8.deb
+    - sudo dpkg -i sbt-0.13.8.deb
+  override:
+    - sbt update
+    - mkdir -p ~/docker-images
+    - if [[ ! -e ~/docker-images/java.tar ]]; then docker pull "java" && docker save "java" > ~/docker-images/java.tar; fi
+    - if [[ -e ~/docker-images/java.tar ]]; then docker load -i ~/docker-images/java.tar; fi
+  cache_directories:
+    - "~/.ivy2"
+    - "~/.sbt"
+    - "~/docker-images"
+
+database:
+  post:
+    - mysql -u root < $HOME/$CIRCLE_PROJECT_REPONAME/ci/setup_database.sql
+    - mysql -u root eb < $HOME/$CIRCLE_PROJECT_REPONAME/ci/setup_table.sql
+
+test:
+  pre:
+    - mv $HOME/$CIRCLE_PROJECT_REPONAME/ci/test.conf $HOME/$CIRCLE_PROJECT_REPONAME/conf/local.conf
+  override:
+    - sbt test
+    
+deployment:
+  docker:
+    branch: master
+    commands:
+      - docker login -e ${DOCKER_EMAIL} -u ${DOCKER_USER} -p ${DOCKER_PASS}
+      - sbt docker:publish
