@@ -8,3 +8,8 @@ $ sbt -Dplay.evolutions.db.default.autoApply=true \
 -Dlogger.file=local/logback.xml \
 run
 ```
+
+## deployment
+```
+$ eb create -db -db.engine mysql
+```
