@@ -20,9 +20,11 @@ database:
     - mysql -u root < $HOME/$CIRCLE_PROJECT_REPONAME/ci/setup_database.sql
     - mysql -u root eb < $HOME/$CIRCLE_PROJECT_REPONAME/ci/setup_table.sql
 
-test:
-  pre:
+checkout:
+  post:
     - mv ci/local.conf config/local.conf
+
+test:
   override:
     - sbt test
     
