@@ -6,13 +6,14 @@ machine:
 
 dependencies:
   pre:
-    - wget -q https://dl.bintray.com/sbt/debian/sbt-0.13.8.deb
-    - sudo dpkg -i sbt-0.13.8.deb
+    - if [[ ! -e ~/sbt-dir/sbt-0.13.8.deb ]]; then wget -q https://dl.bintray.com/sbt/debian/sbt-0.13.8.deb -P sbt-dir/; fi
+    - sudo dpkg -i sbt-dir/sbt-0.13.8.deb
   override:
     - sbt update
   cache_directories:
     - "~/.ivy2"
     - "~/.sbt"
+    - "~/sbt-dir"
 
 database:
   post:
@@ -22,13 +23,10 @@ database:
 test:
   override:
     - sbt test
-  post:
-    - sbt docker:stage
-    - cd target/docker/stage; docker build --tag=${DOCKER_USER}/${DOCKER_REPO} .
-
+    
 deployment:
   hub:
     branch: add_ci_config
     commands:
       - docker login -e ${DOCKER_EMAIL} -u ${DOCKER_USER} -p ${DOCKER_PASS}
-      - docker push ${DOCKER_USER}/${DOCKER_REPO}
+      - sbt docker:publish

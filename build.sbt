@@ -36,9 +36,10 @@ lazy val root = (project in file("."))
     javaOptions in Test ++= Seq("-Dconfig.file=conf/local.conf")
   )
   .settings(
-    packageName in Docker := "eb",
+    packageName in Docker := "eb-docker",
     maintainer in Docker := "INAMURA Hideto <h.inamura0710@gmail.com>",
     dockerExposedPorts := Seq(DockerExposePort, DockerExposePort),
+    dockerRepository := Some("docker.io/shuto0710"),
     dockerCommands := dockerCommands.value.filterNot {
       case ExecCmd("ENTRYPOINT", args @ _*) => true
       case ExecCmd("CMD", args @ _*) => args.isEmpty
